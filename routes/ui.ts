@@ -9,4 +9,8 @@ export class UIRoutes {
 	public bases(req: express.Request, res: express.Response): void {
 		res.render('bases', {});
 	}
+
+	public spaceships(req: express.Request, res: express.Response): void {
+		res.render('spaceships', {});
+	}
 }

@@ -27,6 +27,10 @@ export class Routes {
 			this.ui.bases(req, res);
 		});
 
+		app.get("/spaceships", (req, res) => {
+			this.ui.spaceships(req, res);
+		});
+
 		app.get("/api/bases/get", (req, res) => {
 			this.bases.getAll(req, res, db);
 		});
