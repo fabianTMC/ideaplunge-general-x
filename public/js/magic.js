@@ -23,6 +23,37 @@ var API_URLS = {
 ////////////////////////////////////////////////////////////////////
 var GeneralX = angular.module('GeneralX', []);
 
+angular.module("GeneralX").service('GoogleMap', function() {
+	var factory = {};
+
+	// Where is the map's home?
+	factory.home = { lat: 12.97, lng: 77.59 };
+
+	// Instantiate the map
+	factory.map = new google.maps.Map(
+		document.getElementById('map'),
+		{
+			zoom: 12,
+	  		center: factory.home
+		}
+	);
+
+	// Add a marker to the map.
+	factory.addMarker = function(location, title, icon) {
+		// Add the marker at the clicked location, and add the next-available label
+		// from the array of alphabetical characters.
+		var marker = new google.maps.Marker({
+		  position: location,
+		  title: title,
+		  icon: icon,
+		  map: factory.map
+		});
+	}
+
+	return factory;
+
+ });
+
 // manually boot the angular app when it is ready
 var injector;
 angular.element(document).ready(function() {
