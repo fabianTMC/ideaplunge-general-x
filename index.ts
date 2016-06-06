@@ -21,6 +21,7 @@ app.use(express.static(__dirname + '/public'));
 let routes = new Routes();
 let router = express.Router();
 router.post("/bases/create", routes.bases.create);
+router.post("/spaceships/create", routes.spaceships.create);
 
 app.use(router);
 

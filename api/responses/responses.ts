@@ -1,7 +1,9 @@
 import {BasesResponses} from "./basesResponses";
+import {SpaceshipResponses} from "./spaceshipResonses";
 
 export class Responses {
 	public static Bases = BasesResponses;
+	public static Spaceships = SpaceshipResponses;
 
 	public static GenericMongoError(): any {
 		return {
