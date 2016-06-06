@@ -31,7 +31,8 @@ angular.module('GeneralX').controller('DashboardController', ["$scope", "$http",
 	// -----------------------------------------
 	// --- LOGIC TO RUN WHEN THE PAGE LOADS ---
 	// -----------------------------------------
-	// Load information about the dataset
+
+	// Load all spaceships
 	$http({
 	  method: 'GET',
 	  url: API_URLS.spaceships.get
@@ -44,6 +45,25 @@ angular.module('GeneralX').controller('DashboardController', ["$scope", "$http",
 				},
 				response.data[i].name,
 				"/img/spaceship.png"
+			);
+		}
+	}, function errorCallback(response) {
+	    console.log(response);
+	});
+
+	// Load all active targets
+	$http({
+	  method: 'GET',
+	  url: API_URLS.targets.getActive
+	}).then(function successCallback(response) {
+		for(var i = 0; i < response.data.length; i++) {
+			$scope.addMarker(
+				{
+					lat: response.data[i].latitude,
+					lng: response.data[i].longitude
+				},
+				response.data[i].name,
+				"/img/alien.png"
 			);
 		}
 	}, function errorCallback(response) {

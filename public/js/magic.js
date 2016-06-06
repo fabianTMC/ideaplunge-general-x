@@ -9,7 +9,11 @@ var API_URLS = {
 	},
 	"spaceships": {
 		"get": "/api/spaceships/get"
-	}
+	},
+	"targets": {
+		"getActive": "/api/targets/get-active",
+		"getDestroyed": "/api/targets/get-destroyed",
+	},
 };
 
 ////////////////////////////////////////////////////////////////////
