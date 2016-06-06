@@ -5,19 +5,30 @@ import * as express from 'express';
 // Import all the routes
 import {BaseRoutes} from './bases';
 import {SpaceshipRoutes} from './spaceships';
+import {UIRoutes} from './ui';
 
 import * as mongodb from "mongodb";
 
 export class Routes {
 	public bases: BaseRoutes;
 	public spaceships: SpaceshipRoutes;
+	public ui: UIRoutes;
 
 	constructor(app: any, db: mongodb.Db) {
 		this.bases = new BaseRoutes();
 		this.spaceships = new SpaceshipRoutes();
+		this.ui = new UIRoutes();
+
+		app.get("/", (req, res) => {
+			this.ui.index(req, res);
+		});
 
 		app.post("/bases/create", (req, res) => {
 			this.bases.create(req, res, db);
+		});
+
+		app.get("/spaceships/get", (req, res) => {
+			this.spaceships.getAll(req, res, db);
 		});
 
         app.post("/spaceships/create", (req, res) => {

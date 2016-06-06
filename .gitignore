@@ -41,3 +41,6 @@ jspm_packages
 
 # Ignore typings/ as we will use tsd to install it
 typings/
+
+# Ignore bower components
+bower_components/

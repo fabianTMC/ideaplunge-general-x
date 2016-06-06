@@ -17,6 +17,32 @@ export class SpaceshipsAPI {
 	private static targetsCollectionName = "targets";
 	private static trackCollectionName = "tracking";
 
+	public static getAll(db: MongoDB.Db): Q.Promise<any> {
+		let deferred = Q.defer<any>();
+
+		let collection = db.collection(this.collectionName);
+
+		let keysToReturn = {
+			name: true,
+			currentLatitude: true,
+			currentLongitude: true,
+			uuid: true,
+			_id: false
+		}
+
+		collection.find().project(keysToReturn).toArray((err, docs) => {
+			if(err) {
+				console.log("Could not update targets at new spaceship position");
+				console.log(err);
+				deferred.reject(err);
+			} else {
+				deferred.resolve(docs);
+			}
+		})
+
+		return deferred.promise;
+	}
+
 	public static track(db: MongoDB.Db, target: ITrackCreationFormat, spaceship: string): Q.Promise<any> {
 		let deferred = Q.defer<any>();
 

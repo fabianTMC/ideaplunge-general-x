@@ -9,6 +9,17 @@ import {ITrackCreationFormat, isITrackCreationFormat} from "../interfaces/ITrack
 import {Responses} from "../api/responses/responses";
 
 export class SpaceshipRoutes {
+	public getAll(req: express.Request, res: express.Response, db: MongoDB. Db): void {
+		SpaceshipsAPI.getAll(db)
+			.then((spaceships) => {
+				// Check if the spaceship was valid
+				res.send(spaceships);
+			}, (err) => {
+				console.log(err);
+				res.send(Responses.GenericMongoError());
+			});
+	}
+
 	public track(req: express.Request, res: express.Response, db: MongoDB. Db): void {
 		let position: ITrackCreationFormat = req.body;
 
