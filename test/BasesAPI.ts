@@ -24,20 +24,32 @@ describe('BasesAPI tests', () => {
 	    longitude: 24.2
 	};
 
-	// Connect to MongoDB
-	new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
-	  if(err) {
-	      throw err;
-	  } else {
-	  	it('should pass as this is a new base', () => {
-	          return chai.expect(BasesAPI.create(db, newBase))
-	  			.to.eventually.be.fulfilled;
-	  	});
+	let DB = null;
 
-	  	it('should fail as this is a duplicate base', () => {
-	          return chai.expect(BasesAPI.create(db, newBase))
-	  			.to.eventually.be.rejected;
-	  	});
-	  }
-	});
+	before((done) => {
+		// Connect to MongoDB
+		new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
+		  if(err) {
+		      throw err;
+		  } else {
+			  DB = db;
+			  done();
+		  }
+		});
+	})
+
+	it('should pass as this is a new base', () => {
+          return chai.expect(BasesAPI.create(DB, newBase))
+  			.to.eventually.be.fulfilled;
+  	});
+
+	it('should fail as this is a duplicate base', () => {
+          return chai.expect(BasesAPI.create(DB, newBase))
+  			.to.eventually.be.rejected;
+  	});
+
+	it('should pass as only one base exists', () => {
+          return chai.expect(BasesAPI.getAll(DB))
+  			.to.eventually.be.fulfilled;
+  	});
 });
