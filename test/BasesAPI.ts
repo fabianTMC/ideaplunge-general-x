@@ -6,6 +6,9 @@
 import * as chai from 'chai';
 import * as chaiAsPromised from 'chai-as-promised';
 
+import * as MongoDB from "mongodb";
+import * as CONFIG from "../config";
+
 import {BasesAPI} from "../api/bases";
 
 // Enable chai to work with promises
@@ -21,13 +24,20 @@ describe('BasesAPI tests', () => {
 	    longitude: 24.2
 	};
 
-	it('should pass as this is a new base', () => {
-        return chai.expect(BasesAPI.create(newBase))
-			.to.eventually.be.fulfilled;
-	});
+	// Connect to MongoDB
+	new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
+	  if(err) {
+	      throw err;
+	  } else {
+	  	it('should pass as this is a new base', () => {
+	          return chai.expect(BasesAPI.create(db, newBase))
+	  			.to.eventually.be.fulfilled;
+	  	});
 
-	it('should fail as this is a duplicate base', () => {
-        return chai.expect(BasesAPI.create(newBase))
-			.to.eventually.be.rejected;
+	  	it('should fail as this is a duplicate base', () => {
+	          return chai.expect(BasesAPI.create(db, newBase))
+	  			.to.eventually.be.rejected;
+	  	});
+	  }
 	});
 });
