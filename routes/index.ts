@@ -9,6 +9,6 @@ export class Routes {
 	public bases: BaseRoutes;
 
 	constructor() {
-		this.bases = new BaseRoutes;
+		this.bases = new BaseRoutes();
 	}
 }

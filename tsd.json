@@ -22,6 +22,15 @@
     },
     "body-parser/body-parser.d.ts": {
       "commit": "1be72cdce38fa12471085ac2cf39b0a901321720"
+    },
+    "mongodb/mongodb.d.ts": {
+      "commit": "1be72cdce38fa12471085ac2cf39b0a901321720"
+    },
+    "q/Q.d.ts": {
+      "commit": "1be72cdce38fa12471085ac2cf39b0a901321720"
+    },
+    "uuid/UUID.d.ts": {
+      "commit": "1be72cdce38fa12471085ac2cf39b0a901321720"
     }
   }
 }

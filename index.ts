@@ -18,8 +18,11 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/public'));
 
 // Define what routes where
-let router = new Routes();
-app.use("/bases/create", router.bases.create);
+let routes = new Routes();
+let router = express.Router();
+router.post("/bases/create", routes.bases.create);
+
+app.use(router);
 
 app.listen(CONFIG.PORT, function () {
   console.log('Listening on port '+CONFIG.PORT);
