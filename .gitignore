@@ -39,6 +39,9 @@ jspm_packages
 # Ignore js files as we are writing code in ts
 *.js
 
+# Do not ignore anything in public though
+!public/*.js
+
 # Ignore typings/ as we will use tsd to install it
 typings/
 
