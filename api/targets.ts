@@ -21,6 +21,7 @@ export class TargetsAPI {
 			latitude: true,
 			longitude: true,
 			uuid: true,
+			destroyedAt: true,
 			_id: false
 		}
 
