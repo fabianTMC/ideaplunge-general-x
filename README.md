@@ -1,4 +1,4 @@
-# ideaplunge-general-x-assignment
+# ideaplunge-general-x
 
 To run this code, you will first need to install typecript, tsd and bower.
 
