@@ -31,6 +31,22 @@ new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
   } else {
       console.log("Connected to MONDODB_SERVER: "+CONFIG.MONDODB_SERVER);
 
+     // Enforce index on the bases collection
+     db.collection('bases').createIndex({latitude: 1, longitude: 1}, {unique:true, background:true}, (err, indexName) => {
+         if(err) {
+             console.log("An error occurred while trying to enforce the index for the bases collection.");
+             console.log(err);
+         }
+     });
+
+     // Enforce index on the spaceships collection
+     db.collection('spaceships').createIndex({name: 1}, {unique:true, background:true}, (err, indexName) => {
+         if(err) {
+             console.log("An error occurred while trying to enforce the index for the spaceships collection.");
+             console.log(err);
+         }
+     });
+
       // Define what routes where
       let routes = new Routes(app, db);
 
