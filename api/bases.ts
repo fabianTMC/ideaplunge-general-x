@@ -7,8 +7,6 @@ import * as Q from "q";
 import * as UUID from "uuid";
 import * as MongoDB from "mongodb";
 
-import * as CONFIG from "../config";
-
 export class BasesAPI {
 	private static collectionName = "bases";
 

@@ -2,15 +2,13 @@
 /// <reference path="../typings/uuid/UUID.d.ts"/>
 
 import {ISpaceshipCreationFormat} from "../interfaces/ISpaceshipCreationFormat";
-import {ITargetCreationFormat, TargetStatus} from "../interfaces/ITargetCreationFormat";
+import {TargetStatus} from "../interfaces/ITargetCreationFormat";
 import {ITrackCreationFormat} from "../interfaces/ITrackCreationFormat";
 import {BasesAPI} from "./bases";
 
 import * as MongoDB from "mongodb";
 import * as Q from "q";
 import * as UUID from "uuid";
-
-import * as CONFIG from "../config";
 
 export class SpaceshipsAPI {
 	private static collectionName = "spaceships";
@@ -125,41 +123,6 @@ export class SpaceshipsAPI {
 		return deferred.promise;
 	}
 
-	public static createTarget(db: MongoDB.Db, target: ITargetCreationFormat, spaceship: string): Q.Promise<any> {
-		let deferred = Q.defer<any>();
-
-		this.isValidSpaceship(db, spaceship)
-		.then((spaceship) => {
-			if(spaceship) {
-				// Lets check if the base is a valid base
-				let collection = db.collection(this.targetsCollectionName);
-
-				// Format the creation object
-				let targetToInsert = {
-					name: target.name,
-					latitude: target.latitude,
-					longitude: target.longitude,
-					status: TargetStatus.Active,
-					uuid: UUID.v4(),
-					spaceship: spaceship.uuid
-				}
-
-				collection.insertOne(targetToInsert, function (err, docs) {
-					if (err) {
-						deferred.reject(err);
-					} else {
-						deferred.resolve(docs);
-					}
-				});
-			} else {
-				deferred.resolve(null);
-			}
-		}, (err) => {
-			deferred.reject(err);
-		});
-
-		return deferred.promise;
-	}
 
 	public static isValidSpaceship(db: MongoDB.Db, spaceshipUUID: string): Q.Promise<any> {
 		let deferred = Q.defer<any>();

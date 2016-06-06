@@ -5,6 +5,7 @@ import * as express from 'express';
 // Import all the routes
 import {BaseRoutes} from './bases';
 import {SpaceshipRoutes} from './spaceships';
+import {TargetRoutes} from './targets';
 import {UIRoutes} from './ui';
 
 import * as mongodb from "mongodb";
@@ -12,11 +13,13 @@ import * as mongodb from "mongodb";
 export class Routes {
 	public bases: BaseRoutes;
 	public spaceships: SpaceshipRoutes;
+	public targets: TargetRoutes;
 	public ui: UIRoutes;
 
 	constructor(app: any, db: mongodb.Db) {
 		this.bases = new BaseRoutes();
 		this.spaceships = new SpaceshipRoutes();
+		this.targets = new TargetRoutes();
 		this.ui = new UIRoutes();
 
 		app.get("/", (req, res) => {
@@ -47,12 +50,20 @@ export class Routes {
 			this.spaceships.create(req, res, db);
 		});
 
-		app.post("/api/spaceships/:spaceship/target", (req, res) => {
-			this.spaceships.target(req, res, db);
-		});
-
 		app.post("/api/spaceships/:spaceship/track", (req, res) => {
 			this.spaceships.track(req, res, db);
+		});
+
+		app.post("/api/spaceships/:spaceship/target", (req, res) => {
+			this.targets.target(req, res, db);
+		});
+
+		app.get("/api/targets/get-active", (req, res) => {
+			this.targets.getAllActive(req, res, db);
+		});
+
+		app.get("/api/targets/get-destroyed", (req, res) => {
+			this.targets.getAllDestroyed(req, res, db);
 		});
 	}
 }
