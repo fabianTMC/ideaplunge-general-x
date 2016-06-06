@@ -10,7 +10,9 @@ var API_URLS = {
 	},
 	"spaceships": {
 		"get": "/api/spaceships/get",
-		"create": "/api/spaceships/create"
+		"create": "/api/spaceships/create",
+		"trackPre": "/api/spaceships/",
+		"trackPost": "/track",
 	},
 	"targets": {
 		"createPre": "/api/spaceships/",
@@ -46,17 +48,33 @@ angular.module("GeneralX").service('GoogleMap', function() {
 	);
 
 	// Add a marker to the map.
-	factory.addMarker = function(location, title, icon) {
+	factory.addMarker = function(location, title, icon, uuid, clickable) {
+		clickable = (clickable == undefined) ? true : clickable;
 		// Add the marker at the clicked location, and add the next-available label
 		// from the array of alphabetical characters.
 		var marker = new google.maps.Marker({
 		  position: location,
 		  title: title,
 		  icon: icon,
-		  map: factory.map
+		  map: factory.map,
+		  uuid: uuid,
+		  clickable: clickable
 		});
 
 		factory.markers.push(marker);
+	}
+
+	// Find a marker by a key and value
+	factory.findIndexByProperty = function(key, value) {
+		return factory.markers.map(function(el) {
+		  return el[key];
+	  }).indexOf(value);
+	}
+
+	// Clear a specific marker
+	factory.clearMarker = function(index) {
+		factory.markers[index].setMap(null);
+		factory.markers.splice(index, 1);
 	}
 
 	// Clear all the markers

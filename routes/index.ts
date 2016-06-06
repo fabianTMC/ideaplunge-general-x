@@ -38,6 +38,10 @@ export class Routes {
 			this.ui.targets(req, res);
 		});
 
+		app.get("/track", (req, res) => {
+			this.ui.track(req, res);
+		});
+
 		app.get("/api/bases/get", (req, res) => {
 			this.bases.getAll(req, res, db);
 		});

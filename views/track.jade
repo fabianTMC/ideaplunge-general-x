@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-controller="TrackController")
+        h1.page-header Dashboard
+
+        h4 Click on the map to register a tracking event for the selected spaceship
+        .row
+            .col-md-6
+                select.form-control(ng-model="selectedShip" ng-options="ship.uuid as ship.name for ship in spaceships")
+                br
+        #map
+
+    script(src='/js/controllers/TrackController.js')

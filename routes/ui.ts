@@ -17,4 +17,8 @@ export class UIRoutes {
 	public targets(req: express.Request, res: express.Response): void {
 		res.render('targets', {});
 	}
+
+	public track(req: express.Request, res: express.Response): void {
+		res.render('track', {});
+	}
 }
