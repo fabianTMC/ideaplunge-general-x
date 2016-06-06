@@ -13,4 +13,8 @@ export class UIRoutes {
 	public spaceships(req: express.Request, res: express.Response): void {
 		res.render('spaceships', {});
 	}
+
+	public targets(req: express.Request, res: express.Response): void {
+		res.render('targets', {});
+	}
 }

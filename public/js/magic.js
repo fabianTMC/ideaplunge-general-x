@@ -26,6 +26,9 @@ var GeneralX = angular.module('GeneralX', []);
 angular.module("GeneralX").service('GoogleMap', function() {
 	var factory = {};
 
+	// Keep track of all the markers
+	factory.markers = [];
+
 	// Where is the map's home?
 	factory.home = { lat: 12.97, lng: 77.59 };
 
@@ -48,6 +51,17 @@ angular.module("GeneralX").service('GoogleMap', function() {
 		  icon: icon,
 		  map: factory.map
 		});
+
+		factory.markers.push(marker);
+	}
+
+	// Clear all the markers
+	factory.clearAllMarkers = function() {
+		for (var i = 0; i < factory.markers.length; i++) {
+			factory.markers[i].setMap(null);
+		}
+
+		factory.markers = [];
 	}
 
 	return factory;

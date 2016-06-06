@@ -1,0 +1,11 @@
+extends layout
+
+block content
+    .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main(ng-controller="TargetsController")
+        h1.page-header Targets
+        a(ng-click='viewActive()', href='javascript:;') Active Targets
+        span &nbsp;|&nbsp;
+        a(ng-click='viewDestroyed()', href='javascript:;') Destroyed Targets
+        #map
+
+    script(src='/js/controllers/TargetsController.js')
