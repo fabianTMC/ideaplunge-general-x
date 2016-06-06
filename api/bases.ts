@@ -12,6 +12,32 @@ import * as CONFIG from "../config";
 export class BasesAPI {
 	private static collectionName = "bases";
 
+	public static getAll(db: MongoDB.Db): Q.Promise<any> {
+		let deferred = Q.defer<any>();
+
+		let collection = db.collection(this.collectionName);
+
+		let keysToReturn = {
+			name: true,
+			latitude: true,
+			longitude: true,
+			uuid: true,
+			_id: false
+		}
+
+		collection.find().project(keysToReturn).toArray((err, docs) => {
+			if(err) {
+				console.log("Could not find bases.");
+				console.log(err);
+				deferred.reject(err);
+			} else {
+				deferred.resolve(docs);
+			}
+		})
+
+		return deferred.promise;
+	}
+
 	public static isValidBase(db: MongoDB.Db, baseUUID: string): Q.Promise<any> {
 		let deferred = Q.defer<any>();
 

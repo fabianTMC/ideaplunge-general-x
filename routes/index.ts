@@ -23,23 +23,31 @@ export class Routes {
 			this.ui.index(req, res);
 		});
 
-		app.post("/bases/create", (req, res) => {
+		app.get("/bases", (req, res) => {
+			this.ui.bases(req, res);
+		});
+
+		app.get("/api/bases/get", (req, res) => {
+			this.bases.getAll(req, res, db);
+		});
+
+		app.post("/api/bases/create", (req, res) => {
 			this.bases.create(req, res, db);
 		});
 
-		app.get("/spaceships/get", (req, res) => {
+		app.get("/api/spaceships/get", (req, res) => {
 			this.spaceships.getAll(req, res, db);
 		});
 
-        app.post("/spaceships/create", (req, res) => {
+        app.post("/api/spaceships/create", (req, res) => {
 			this.spaceships.create(req, res, db);
 		});
 
-		app.post("/spaceships/:spaceship/target", (req, res) => {
+		app.post("/api/spaceships/:spaceship/target", (req, res) => {
 			this.spaceships.target(req, res, db);
 		});
 
-		app.post("/spaceships/:spaceship/track", (req, res) => {
+		app.post("/api/spaceships/:spaceship/track", (req, res) => {
 			this.spaceships.track(req, res, db);
 		});
 	}

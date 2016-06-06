@@ -32,7 +32,7 @@ export class SpaceshipsAPI {
 
 		collection.find().project(keysToReturn).toArray((err, docs) => {
 			if(err) {
-				console.log("Could not update targets at new spaceship position");
+				console.log("Could not find spaceships.");
 				console.log(err);
 				deferred.reject(err);
 			} else {

@@ -7,6 +7,17 @@ import {IBaseCreationFormat, isIBaseCreationFormat} from "../interfaces/IBaseCre
 import {Responses} from "../api/responses/responses";
 
 export class BaseRoutes {
+	public getAll(req: express.Request, res: express.Response, db: MongoDB. Db): void {
+		BasesAPI.getAll(db)
+			.then((bases) => {
+				// Check if the spaceship was valid
+				res.send(bases);
+			}, (err) => {
+				console.log(err);
+				res.send(Responses.GenericMongoError());
+			});
+	}
+
 	public create(req: express.Request, res: express.Response, db: MongoDB.Db): void {
 		let base: IBaseCreationFormat = req.body;
 
