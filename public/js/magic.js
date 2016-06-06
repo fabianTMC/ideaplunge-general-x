@@ -5,10 +5,12 @@
 ////////////////////////////////////////////////////////////////////
 var API_URLS = {
 	"bases": {
-		"get": "/api/bases/get"
+		"get": "/api/bases/get",
+		"create": "/api/bases/create"
 	},
 	"spaceships": {
-		"get": "/api/spaceships/get"
+		"get": "/api/spaceships/get",
+		"create": "/api/spaceships/create"
 	},
 	"targets": {
 		"getActive": "/api/targets/get-active",
