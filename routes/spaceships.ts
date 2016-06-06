@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as MongoDB from "mongodb";
 
 import {SpaceshipsAPI} from "../api/spaceships";
 import {ISpaceshipCreationFormat, isISpaceshipCreationFormat} from "../interfaces/ISpaceshipCreationFormat";
@@ -6,11 +7,11 @@ import {ISpaceshipCreationFormat, isISpaceshipCreationFormat} from "../interface
 import {Responses} from "../api/responses/responses";
 
 export class SpaceshipRoutes {
-	public create(req: express.Request, res: express.Response): void {
+	public create(req: express.Request, res: express.Response, db: MongoDB.Db): void {
 		let spaceship: ISpaceshipCreationFormat = req.body;
 
 		if(isISpaceshipCreationFormat(spaceship)) {
-			SpaceshipsAPI.create(spaceship)
+			SpaceshipsAPI.create(db, spaceship)
 				.then((spaceship) => {
 					// Check if the base was valid
 					if(!spaceship) {

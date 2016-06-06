@@ -6,12 +6,22 @@ import * as express from 'express';
 import {BaseRoutes} from './bases';
 import {SpaceshipRoutes} from './spaceships';
 
+import * as mongodb from "mongodb";
+
 export class Routes {
 	public bases: BaseRoutes;
 	public spaceships: SpaceshipRoutes;
 
-	constructor() {
+	constructor(app: any, db: mongodb.Db) {
 		this.bases = new BaseRoutes();
 		this.spaceships = new SpaceshipRoutes();
+
+		app.post("/bases/create", (req, res) => {
+			this.bases.create(req, res, db);
+		});
+		
+        app.post("/spaceships/create", (req, res) => {
+			this.spaceships.create(req, res, db);
+		});
 	}
 }

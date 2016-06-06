@@ -8,6 +8,7 @@ import * as bodyParser from "body-parser";
 import {Routes} from "./routes/index";
 
 import * as CONFIG from "./config";
+import * as MongoDB from "mongodb";
 
 let app = express();
 
@@ -17,14 +18,18 @@ app.use(bodyParser.json());
 //Serve static files
 app.use(express.static(__dirname + '/public'));
 
-// Define what routes where
-let routes = new Routes();
-let router = express.Router();
-router.post("/bases/create", routes.bases.create);
-router.post("/spaceships/create", routes.spaceships.create);
+// Connect to MongoDB
+new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
+  if(err) {
+      throw err;
+  } else {
+      console.log("Connected to MONDODB_SERVER: "+CONFIG.MONDODB_SERVER);
 
-app.use(router);
+      // Define what routes where
+      let routes = new Routes(app, db);
 
-app.listen(CONFIG.PORT, function () {
-  console.log('Listening on port '+CONFIG.PORT);
+      app.listen(CONFIG.PORT, function () {
+        console.log('Listening on port '+CONFIG.PORT);
+      });
+  }
 });

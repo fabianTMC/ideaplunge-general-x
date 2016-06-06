@@ -13,36 +13,30 @@ import * as CONFIG from "../config";
 export class SpaceshipsAPI {
 	private static collectionName = "spaceships";
 
-	public static create(spaceship: ISpaceshipCreationFormat): Q.Promise<any> {
+	public static create(db: MongoDB.Db, spaceship: ISpaceshipCreationFormat): Q.Promise<any> {
 		let deferred = Q.defer<any>();
 
 		// Lets check if the base is a valid base
-		BasesAPI.isValidBase(spaceship.homeBase)
+		BasesAPI.isValidBase(db, spaceship.homeBase)
 		.then((baseDetails) => {
 			if(baseDetails) {
-				new MongoDB.MongoClient.connect(CONFIG.MONDODB_SERVER, (err, db) => {
-				  if(err) {
-					  throw err;
-				  } else {
-					  let collection = db.collection(this.collectionName);
+				let collection = db.collection(this.collectionName);
 
-					  // Format the creation object
-					  let spaceshipToInsert = {
-						name: spaceship.name,
-						homeBase: spaceship.homeBase,
-					  	currentLatitude: baseDetails.latitude,
-					  	currentLongitude: baseDetails.longitude,
-						uuid: UUID.v4()
-					  }
+				// Format the creation object
+				let spaceshipToInsert = {
+					name: spaceship.name,
+					homeBase: spaceship.homeBase,
+					currentLatitude: baseDetails.latitude,
+					currentLongitude: baseDetails.longitude,
+					uuid: UUID.v4()
+				}
 
-					  collection.insertOne(spaceshipToInsert, function (err, docs) {
-						 if (err) {
-							 deferred.reject(err);
-						 } else {
-							 deferred.resolve(docs);
-						 }
-					 });
-				  }
+				collection.insertOne(spaceshipToInsert, function (err, docs) {
+					if (err) {
+						deferred.reject(err);
+					} else {
+						deferred.resolve(docs);
+					}
 				});
 			} else {
 				deferred.resolve(null);

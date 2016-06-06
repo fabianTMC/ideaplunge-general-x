@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as MongoDB from "mongodb";
 
 import {BasesAPI} from "../api/bases";
 import {IBaseCreationFormat, isIBaseCreationFormat} from "../interfaces/IBaseCreationFormat";
@@ -6,11 +7,11 @@ import {IBaseCreationFormat, isIBaseCreationFormat} from "../interfaces/IBaseCre
 import {Responses} from "../api/responses/responses";
 
 export class BaseRoutes {
-	public create(req: express.Request, res: express.Response): void {
+	public create(req: express.Request, res: express.Response, db: MongoDB.Db): void {
 		let base: IBaseCreationFormat = req.body;
 
 		if(isIBaseCreationFormat(base)) {
-			BasesAPI.create(base)
+			BasesAPI.create(db, base)
 				.then((base) => {
 					if(base.insertedCount && base.insertedCount == 1) {
 						res.send(Responses.Bases.CreatedBase(base.insertedId));
