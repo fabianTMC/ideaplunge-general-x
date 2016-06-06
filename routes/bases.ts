@@ -14,7 +14,7 @@ export class BaseRoutes {
 			BasesAPI.create(db, base)
 				.then((base) => {
 					if(base.insertedCount && base.insertedCount == 1) {
-						res.send(Responses.Bases.CreatedBase(base.insertedId));
+						res.send(Responses.Bases.CreatedBase(base.ops[0].uuid));
 					} else {
 						// This condition will have insertedCount == 0 since we used insertOne
 						// in the create function

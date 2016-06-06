@@ -19,9 +19,17 @@ export class Routes {
 		app.post("/bases/create", (req, res) => {
 			this.bases.create(req, res, db);
 		});
-		
+
         app.post("/spaceships/create", (req, res) => {
 			this.spaceships.create(req, res, db);
+		});
+
+		app.post("/spaceships/:spaceship/target", (req, res) => {
+			this.spaceships.target(req, res, db);
+		});
+
+		app.post("/spaceships/:spaceship/track", (req, res) => {
+			this.spaceships.track(req, res, db);
 		});
 	}
 }
