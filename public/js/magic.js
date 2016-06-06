@@ -13,6 +13,8 @@ var API_URLS = {
 		"create": "/api/spaceships/create"
 	},
 	"targets": {
+		"createPre": "/api/spaceships/",
+		"createPost": "/target",
 		"getActive": "/api/targets/get-active",
 		"getDestroyed": "/api/targets/get-destroyed",
 	},

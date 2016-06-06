@@ -60,6 +60,4 @@ angular.module('GeneralX').controller('SpaceshipsController', ["$scope", "$http"
 	}, function errorCallback(response) {
 	    console.log(response);
 	});
-
-
 }]);

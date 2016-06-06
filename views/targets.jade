@@ -6,6 +6,13 @@ block content
         a(ng-click='viewActive()', href='javascript:;') Active Targets
         span &nbsp;|&nbsp;
         a(ng-click='viewDestroyed()', href='javascript:;') Destroyed Targets
+
+        h4 Click on the map to create a new target for the selected spaceship
+        .row
+            .col-md-6
+                select.form-control(ng-model="selectedShip" ng-options="ship.uuid as ship.name for ship in spaceships")
+                br
+
         #map
 
     script(src='/js/controllers/TargetsController.js')
