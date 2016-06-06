@@ -7,7 +7,7 @@ export interface IBaseCreationFormat {
 }
 
 export function isIBaseCreationFormat(obj: any): boolean {
-	return (
+	let result = (
 		obj
 		&&
 		obj.name && obj.name.length > 0
@@ -16,4 +16,8 @@ export function isIBaseCreationFormat(obj: any): boolean {
 		&&
 		obj.longitude && CoordinatesValidator.isValidLongitude(obj.longitude)
 	);
+
+	// This is because when evaluating the code above, undefined might be returned
+	// if keys are not set and boolean values if they are set and pass/fail the given criteria
+	return result || false;
 }
